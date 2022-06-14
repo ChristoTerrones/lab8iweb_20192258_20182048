@@ -30,6 +30,9 @@
             <li class="nav-item">
                 <a class="nav-link <%=request.getParameter("page").equals("recomendaciones")? "active": "" %>" href="<%=request.getContextPath()%>/listaRecomendados">Recomendaciones</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link <%=request.getParameter("page").equals("recomendaciones")? "active": "" %>" href="<%=request.getContextPath()%>/listaCancionesFavoritas">Recomendaciones</a>
+            </li>
         </ul>
     </div>
 </nav>
