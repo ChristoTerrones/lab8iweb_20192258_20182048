@@ -30,7 +30,7 @@
                         <td><%=recomendados.getIdCancion()%></td>
                         <td><%=recomendados.getNombreCancion()%></td>
                         <td><%=recomendados.getBanda()%></td>
-                        <td><a class="btn btn-success" href="<%=request.getContextPath()%>/listaCanciones">Más de la banda</a></td>
+                        <td><a class="btn btn-success" href="<%=request.getContextPath()%>/listaCanciones?a=filtra&idbanda=<%recomendados.getBanda();%>">Más de la banda</a></td>
                     </tr>
                     <%
                         }
