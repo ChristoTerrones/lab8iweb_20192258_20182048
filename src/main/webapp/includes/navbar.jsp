@@ -27,6 +27,9 @@
             <li class="nav-item">
                 <a class="nav-link <%=request.getParameter("page").equals("artistas")? "active": "" %>" href="<%=request.getContextPath()%>/listaArtistas">Artistas</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link <%=request.getParameter("page").equals("recomendaciones")? "active": "" %>" href="<%=request.getContextPath()%>/listaRecomendados">Recomendaciones</a>
+            </li>
 
         </ul>
     </div>
