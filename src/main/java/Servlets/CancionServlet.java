@@ -15,11 +15,20 @@ public class CancionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CancionDao cancion = new CancionDao();
         ArrayList<Cancion> listaCancion = cancion.obtenerListaCancion();
-
-        request.setAttribute("listaCancion",listaCancion);
-
-        RequestDispatcher view =request.getRequestDispatcher("listaCancion.jsp");
-        view.forward(request,response);
+        String action = request.getParameter("a") == null? "listar" : request.getParameter("a");
+        switch (action){
+            case "listar" -> {
+                request.setAttribute("listaCancion",listaCancion);
+                RequestDispatcher view =request.getRequestDispatcher("listaCancion.jsp");
+                view.forward(request,response);
+            }
+            case "filtra" -> {
+                String banda = request.getParameter("id");
+                request.setAttribute("listaCancion",cancion.obtenerListaCancionBanda(banda));
+                RequestDispatcher view =request.getRequestDispatcher("listaCancion.jsp");
+                view.forward(request,response);
+            }
+        }
     }
 
     @Override
