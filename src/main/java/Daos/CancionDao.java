@@ -90,6 +90,41 @@ public class CancionDao {
         return listaCancionesFavoritas;
     }
 
+    public void agregarFavorito(String id){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        String sql = "INSERT INTO `lab6sw1`.`cancion_favorita` (`cancion_idcancion`) VALUES (?);";
+        try (Connection connection = DriverManager.getConnection(url,user,pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql);){
+
+            pstmt.setInt(1,Integer.parseInt(id));
+            pstmt.executeUpdate(); //Es update porque es para insert, update y delete
+
+        } catch (SQLException e) {
+            System.out.println("No se pudo realizar la busqueda");
+        }
+    }
+    public void borrarFavorito(String id){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        String sql = "delete from cancion_favorita where cancion_idcancion = ?;";
+        try (Connection connection = DriverManager.getConnection(url,user,pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql);){
+
+            pstmt.setInt(1,Integer.parseInt(id));
+            pstmt.executeUpdate(); //Es update porque es para insert, update y delete
+
+        } catch (SQLException e) {
+            System.out.println("No se pudo realizar la busqueda");
+        }
+        return listaCancionesFavoritas;
+    }
     public ArrayList<Cancion> obtenerlistas(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -141,6 +176,5 @@ public class CancionDao {
         }
         return listaCancion;
     }
-
 
 }

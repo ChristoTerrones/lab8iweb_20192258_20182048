@@ -1,7 +1,10 @@
 <%@ page import="Beans.Cancion" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean type="java.util.ArrayList<Beans.Cancion>" scope="request" id="listaCancion"/>
 <jsp:useBean id="inicio" scope="request" type="java.lang.String" class="java.lang.String" />
+<jsp:useBean id="cambio" scope="request" type="java.lang.String" class="java.lang.String" />
+<jsp:useBean id="id" scope="request" type="java.lang.String" class="java.lang.String" />
 <html>
     <jsp:include page="/static/head.jsp">
         <jsp:param name="title" value="Lista de Canciones"/>
@@ -38,14 +41,19 @@
                         <th>BANDA</th>
                         <th>FAVORITO</th>
                     </thead>
-                    <%
+                    <% ArrayList<Integer> rojos = new ArrayList<Integer>();
                         for (Cancion cancion : listaCancion) {
                     %>
                     <tr>
                         <td><%=cancion.getIdCancion()%></td>
                         <td><%=cancion.getNombreCancion()%></td>
                         <td><%=cancion.getBanda()%></td>
-                        <td><a href="<%=request.getContextPath()%>/listaCanciones?a=agregar&id=<%=cancion.getIdCancion()%>" class="btn btn-primary">Agregar</a></td>
+                        <% if((cambio.equals("cambiarBoton") && Integer.parseInt(id) == cancion.getIdCancion()) || ){ %>
+                        <td><a href="<%=request.getContextPath()%>/listaCanciones?a=borrar&id=<%=cancion.getIdCancion()%>" class="btn btn-danger"> <\3 </a></td>
+                        <% }else{ %>
+                        <td><a href="<%=request.getContextPath()%>/listaCanciones?a=agregar&id=<%=cancion.getIdCancion()%>" class="btn btn-primary"> <3 </a></td>
+                        <% rojos.add(cancion.getIdCancion());
+                        } %>
                     </tr>
                     <%
                         }

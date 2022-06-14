@@ -35,6 +35,25 @@ public class CancionServlet extends HttpServlet {
                 RequestDispatcher view =request.getRequestDispatcher("listaCancionesFavoritas.jsp");
                 view.forward(request,response);
             }
+            case "agregar" -> {
+                String id = request.getParameter("id");
+                cancion.agregarFavorito(id);
+                request.setAttribute("listaCancion",cancion.obtenerListaCancion());
+                request.setAttribute("inicio","sinBoton");
+                request.setAttribute("cambio","cambiarBoton");
+                request.setAttribute("id",id);
+                RequestDispatcher view =request.getRequestDispatcher("listaCancion.jsp");
+                view.forward(request,response);
+            }
+            case "borrar" -> {
+                String id = request.getParameter("id");
+                cancion.borrarFavorito(id);
+                request.setAttribute("listaCancion",cancion.obtenerListaCancion());
+                request.setAttribute("inicio","sinBoton");
+                request.setAttribute("cambio","NocambiarBoton");
+                RequestDispatcher view =request.getRequestDispatcher("listaCancion.jsp");
+                view.forward(request,response);
+            }
             case "listas" -> {
                 request.setAttribute("listas",cancion.obtenerlistas());
 
@@ -48,6 +67,7 @@ public class CancionServlet extends HttpServlet {
                 RequestDispatcher view =request.getRequestDispatcher("playlist.jsp");
                 view.forward(request,response);
             }
+
         }
     }
 
