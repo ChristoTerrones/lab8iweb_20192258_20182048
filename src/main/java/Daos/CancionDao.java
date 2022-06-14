@@ -90,29 +90,40 @@ public class CancionDao {
         return listaCancionesFavoritas;
     }
 
-    public ArrayList<Cancion> obtenerListaCancionesFavoritas(){
+    public void agregarFavorito(String id){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        ArrayList<Cancion> listaCancionesFavoritas = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT f.cancion_idcancion, c.nombre_cancion, c.banda FROM cancion_favorita f, cancion c\n" +
-                     "where f.cancion_idcancion = c.idcancion;")) {
+        String sql = "INSERT INTO `lab6sw1`.`cancion_favorita` (`cancion_idcancion`) VALUES (?);";
+        try (Connection connection = DriverManager.getConnection(url,user,pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql);){
 
-            while (rs.next()) {
-                int id_cancion= rs.getInt(1);
-                String nombre = rs.getString(2);
-                String banda = rs.getString(3);
-
-                listaCancionesFavoritas.add(new Cancion(id_cancion,nombre,banda));
-            }
+            pstmt.setInt(1,Integer.parseInt(id));
+            pstmt.executeUpdate(); //Es update porque es para insert, update y delete
 
         } catch (SQLException e) {
             System.out.println("No se pudo realizar la busqueda");
         }
-        return listaCancionesFavoritas;
     }
+    public void borrarFavorito(String id){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        String sql = "delete from cancion_favorita where cancion_idcancion = ?;";
+        try (Connection connection = DriverManager.getConnection(url,user,pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql);){
+
+            pstmt.setInt(1,Integer.parseInt(id));
+            pstmt.executeUpdate(); //Es update porque es para insert, update y delete
+
+        } catch (SQLException e) {
+            System.out.println("No se pudo realizar la busqueda");
+        }
+    }
+
+
 }
