@@ -1,24 +1,22 @@
 <%@ page import="Beans.Cancion" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean type="java.util.ArrayList<Beans.Cancion>" scope="request" id="listaCancion"/>
+<jsp:useBean type="java.util.ArrayList<Beans.Cancion>" scope="request" id="listaCancionesFavoritas"/>
 <html>
     <jsp:include page="/static/head.jsp">
-        <jsp:param name="title" value="Lista de Canciones"/>
+        <jsp:param name="title" value="Lista de Canciones Favoritas"/>
     </jsp:include>
     <body>
         <div class='container'>
             <jsp:include page="/includes/navbar.jsp">
-                <jsp:param name="page" value="canciones"/>
+                <jsp:param name="page" value="favoritos"/>
             </jsp:include>
             <div class="pb-5 pt-4 px-3 titlecolor">
 
                 <div class="row gx-lg-5">
                     <div class="col-lg-8">
-                        <h1 class='text-light'>Lista de Canciones</h1>
+                        <h1 class='text-light'>Lista de Canciones Favoritas</h1>
                     </div>
-                    <div class="col-lg-3">
-                        <a class="btn btn-warning" href="<%=request.getContextPath()%>/listaCanciones">Mostrar todas las canciones</a>
-                    </div>
+
                 </div>
 
             </div>
@@ -30,12 +28,12 @@
                         <th>BANDA</th>
                     </thead>
                     <%
-                        for (Cancion cancion : listaCancion) {
+                        for (Cancion cancionesFavoritas : listaCancionesFavoritas) {
                     %>
                     <tr>
-                        <td><%=cancion.getIdCancion()%></td>
-                        <td><%=cancion.getNombreCancion()%></td>
-                        <td><%=cancion.getBanda()%></td>
+                        <td><%=cancionesFavoritas.getIdCancion()%></td>
+                        <td><%=cancionesFavoritas.getNombreCancion()%></td>
+                        <td><%=cancionesFavoritas.getBanda()%></td>
                     </tr>
                     <%
                         }

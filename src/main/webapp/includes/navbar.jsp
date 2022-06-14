@@ -31,7 +31,7 @@
                 <a class="nav-link <%=request.getParameter("page").equals("recomendaciones")? "active": "" %>" href="<%=request.getContextPath()%>/listaRecomendados">Recomendaciones</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <%=request.getParameter("page").equals("recomendaciones")? "active": "" %>" href="<%=request.getContextPath()%>/listaCancionesFavoritas">Recomendaciones</a>
+                <a class="nav-link <%=request.getParameter("page").equals("favoritos")? "active": "" %>" href="<%=request.getContextPath()%>/listaCanciones?a=favorito">Favoritos</a>
             </li>
         </ul>
     </div>

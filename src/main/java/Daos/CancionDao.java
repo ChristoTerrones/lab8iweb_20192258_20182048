@@ -63,4 +63,56 @@ public class CancionDao {
         }
         return listaCancion;
     }
+
+    public ArrayList<Cancion> obtenerListaCancionesFavoritas(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Cancion> listaCancionesFavoritas = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, user, pass);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT f.cancion_idcancion, c.nombre_cancion, c.banda FROM cancion_favorita f, cancion c\n" +
+                     "where f.cancion_idcancion = c.idcancion;")) {
+
+            while (rs.next()) {
+                int id_cancion= rs.getInt(1);
+                String nombre = rs.getString(2);
+                String banda = rs.getString(3);
+
+                listaCancionesFavoritas.add(new Cancion(id_cancion,nombre,banda));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("No se pudo realizar la busqueda");
+        }
+        return listaCancionesFavoritas;
+    }
+
+    public ArrayList<Cancion> obtenerListaCancionesFavoritas(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Cancion> listaCancionesFavoritas = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, user, pass);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT f.cancion_idcancion, c.nombre_cancion, c.banda FROM cancion_favorita f, cancion c\n" +
+                     "where f.cancion_idcancion = c.idcancion;")) {
+
+            while (rs.next()) {
+                int id_cancion= rs.getInt(1);
+                String nombre = rs.getString(2);
+                String banda = rs.getString(3);
+
+                listaCancionesFavoritas.add(new Cancion(id_cancion,nombre,banda));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("No se pudo realizar la busqueda");
+        }
+        return listaCancionesFavoritas;
+    }
 }
