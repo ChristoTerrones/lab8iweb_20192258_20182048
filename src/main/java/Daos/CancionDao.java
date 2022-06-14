@@ -123,7 +123,7 @@ public class CancionDao {
         } catch (SQLException e) {
             System.out.println("No se pudo realizar la busqueda");
         }
-        return listaCancionesFavoritas;
+
     }
     public ArrayList<Cancion> obtenerlistas(){
         try {

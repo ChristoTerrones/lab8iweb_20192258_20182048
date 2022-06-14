@@ -40,6 +40,7 @@
                         <th>CANCION</th>
                         <th>BANDA</th>
                         <th>FAVORITO</th>
+                        <th>GUARDAR</th>
                     </thead>
                     <% ArrayList<Integer> rojos = new ArrayList<Integer>();
                         for (Cancion cancion : listaCancion) {
@@ -48,19 +49,20 @@
                         <td><%=cancion.getIdCancion()%></td>
                         <td><%=cancion.getNombreCancion()%></td>
                         <td><%=cancion.getBanda()%></td>
-                        <% if((cambio.equals("cambiarBoton") && Integer.parseInt(id) == cancion.getIdCancion()) || ){ %>
+                        <% if((cambio.equals("cambiarBoton") && Integer.parseInt(id) == cancion.getIdCancion()) ){ %>
                         <td><a href="<%=request.getContextPath()%>/listaCanciones?a=borrar&id=<%=cancion.getIdCancion()%>" class="btn btn-danger"> <\3 </a></td>
                         <% }else{ %>
                         <td><a href="<%=request.getContextPath()%>/listaCanciones?a=agregar&id=<%=cancion.getIdCancion()%>" class="btn btn-primary"> <3 </a></td>
                         <% rojos.add(cancion.getIdCancion());
                         } %>
+                        <td><a href="" class="btn btn-info"> + </a></td>
+
                     </tr>
                     <%
                         }
                     %>
                 </table>
             </div>
-
         </div>
         <jsp:include page="/static/scripts.jsp"/>
     </body>
