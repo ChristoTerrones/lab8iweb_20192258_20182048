@@ -35,10 +35,17 @@ public class CancionServlet extends HttpServlet {
                 RequestDispatcher view =request.getRequestDispatcher("listaCancionesFavoritas.jsp");
                 view.forward(request,response);
             }
-            case "favorito" -> {
-                request.setAttribute("listaCancionesFavoritas",cancion.obtenerListaCancionesFavoritas());
+            case "listas" -> {
+                request.setAttribute("listas",cancion.obtenerlistas());
 
-                RequestDispatcher view =request.getRequestDispatcher("listaCancionesFavoritas.jsp");
+                RequestDispatcher view =request.getRequestDispatcher("listasReproduccion.jsp");
+                view.forward(request,response);
+            }
+            case "escoge" -> {
+                String nombrelista = request.getParameter("nombrelista");
+                request.setAttribute("playlist",cancion.obtenerListasFiltradas(nombrelista));
+
+                RequestDispatcher view =request.getRequestDispatcher("playlist.jsp");
                 view.forward(request,response);
             }
         }

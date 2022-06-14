@@ -90,29 +90,57 @@ public class CancionDao {
         return listaCancionesFavoritas;
     }
 
-    public ArrayList<Cancion> obtenerListaCancionesFavoritas(){
+    public ArrayList<Cancion> obtenerlistas(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        ArrayList<Cancion> listaCancionesFavoritas = new ArrayList<>();
+        ArrayList<Cancion> listas = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, user, pass);
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT f.cancion_idcancion, c.nombre_cancion, c.banda FROM cancion_favorita f, cancion c\n" +
-                     "where f.cancion_idcancion = c.idcancion;")) {
+             ResultSet rs = stmt.executeQuery("SELECT idplaylist FROM playlist\n" +
+                     "group by idplaylist")) {
 
             while (rs.next()) {
-                int id_cancion= rs.getInt(1);
-                String nombre = rs.getString(2);
-                String banda = rs.getString(3);
+                String nombrelista = rs.getString(1);
 
-                listaCancionesFavoritas.add(new Cancion(id_cancion,nombre,banda));
+                listas.add(new Cancion(nombrelista));
             }
 
         } catch (SQLException e) {
             System.out.println("No se pudo realizar la busqueda");
         }
-        return listaCancionesFavoritas;
+        return listas;
     }
+    public ArrayList<Cancion> obtenerListasFiltradas(String nombrelista2){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Cancion> listaCancion = new ArrayList<>();
+        String sql = "SELECT p.idplaylist, c.nombre_cancion FROM playlist p, cancion c where idplaylist= ?\n" +
+                "and p.cancion_idcancion= c.idcancion;";
+        try (Connection connection = DriverManager.getConnection(url,user,pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+
+            pstmt.setString(1,nombrelista2);
+
+            try(ResultSet rs = pstmt.executeQuery();){
+                while (rs.next()) {
+                    String nombrelista = rs.getString(1);
+                    String nombrecancion = rs.getString(2);
+
+                    listaCancion.add(new Cancion(nombrelista,nombrecancion));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("No se pudo realizar la busqueda");
+        }
+        return listaCancion;
+    }
+
+
 }
