@@ -17,15 +17,22 @@ public class CancionServlet extends HttpServlet {
         String action = request.getParameter("a") == null? "listar" : request.getParameter("a");
         switch (action){
             case "listar" -> {
+                //Esto siempre
                 request.setAttribute("listaCancion",cancion.obtenerListaCancion());
                 request.setAttribute("inicio","sinBoton");
+
+                //Para el cambio del boton
+                request.setAttribute("listaCancionesFavoritas",cancion.obtenerListaCancionesFavoritas());
+
                 RequestDispatcher view =request.getRequestDispatcher("listaCancion.jsp");
                 view.forward(request,response);
             }
             case "filtra" -> {
                 String banda = request.getParameter("idbanda");
                 request.setAttribute("inicio","conBoton");
+
                 request.setAttribute("listaCancion",cancion.obtenerListaCancionBanda(banda));
+                request.setAttribute("listaCancionesFavoritas",cancion.obtenerListaCancionesFavoritas());
                 RequestDispatcher view =request.getRequestDispatcher("listaCancion.jsp");
                 view.forward(request,response);
             }
@@ -36,21 +43,33 @@ public class CancionServlet extends HttpServlet {
                 view.forward(request,response);
             }
             case "agregar" -> {
-                String id = request.getParameter("id");
-                cancion.agregarFavorito(id);
+                //Esto siempre
                 request.setAttribute("listaCancion",cancion.obtenerListaCancion());
                 request.setAttribute("inicio","sinBoton");
-                request.setAttribute("cambio","cambiarBoton");
-                request.setAttribute("id",id);
+
+                //Agregando
+                String id = request.getParameter("id");
+                cancion.agregarFavorito(id);
+
+                //Para el cambio del boton
+                request.setAttribute("listaCancionesFavoritas",cancion.obtenerListaCancionesFavoritas());
+
                 RequestDispatcher view =request.getRequestDispatcher("listaCancion.jsp");
                 view.forward(request,response);
             }
             case "borrar" -> {
-                String id = request.getParameter("id");
-                cancion.borrarFavorito(id);
+                //Esto siempre
                 request.setAttribute("listaCancion",cancion.obtenerListaCancion());
                 request.setAttribute("inicio","sinBoton");
-                request.setAttribute("cambio","NocambiarBoton");
+
+                //Borrando
+                String id = request.getParameter("id");
+                cancion.borrarFavorito(id);
+
+                //Para el cambio del boton
+                request.setAttribute("listaCancionesFavoritas",cancion.obtenerListaCancionesFavoritas());
+
+
                 RequestDispatcher view =request.getRequestDispatcher("listaCancion.jsp");
                 view.forward(request,response);
             }
