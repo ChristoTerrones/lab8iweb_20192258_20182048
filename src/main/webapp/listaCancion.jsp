@@ -3,6 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean type="java.util.ArrayList<Beans.Cancion>" scope="request" id="listaCancion"/>
 <jsp:useBean id="inicio" scope="request" type="java.lang.String" class="java.lang.String" />
+<jsp:useBean id="cambio" scope="request" type="java.lang.String" class="java.lang.String" />
+<jsp:useBean id="id" scope="request" type="java.lang.String" class="java.lang.String" />
 <jsp:useBean type="java.util.ArrayList<Beans.Cancion>" scope="request" id="listaCancionesFavoritas" class="java.util.ArrayList"/>
 <html>
     <jsp:include page="/static/head.jsp">
@@ -39,6 +41,7 @@
                         <th>CANCION</th>
                         <th>BANDA</th>
                         <th>FAVORITO</th>
+                        <th>GUARDAR</th>
                     </thead>
                     <% for (Cancion cancion : listaCancion){ %>
                     <tr>
@@ -65,6 +68,7 @@
                         <% }else{%>
                         <td><a href="<%=request.getContextPath()%>/listaCanciones?a=agregar&id=<%=cancion.getIdCancion()%>" class="btn btn-primary"> <3 </a></td>
                         <% }%>
+                        <td><a href="" class="btn btn-info"> + </a></td>
 
                     </tr>
                     <% }%>

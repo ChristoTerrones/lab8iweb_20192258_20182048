@@ -6,6 +6,15 @@ public class Cancion {
     private String nombreCancion;
     private String banda;
 
+    public Cancion(String nombreCancion) {
+        this.nombreCancion = nombreCancion;
+    }
+
+    public Cancion(String nombreCancion, String banda) {
+        this.nombreCancion = nombreCancion;
+        this.banda = banda;
+    }
+
     public Cancion(int idCancion, String nombreCancion, String banda) {
         this.idCancion = idCancion;
         this.nombreCancion = nombreCancion;
