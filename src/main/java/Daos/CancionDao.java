@@ -176,5 +176,70 @@ public class CancionDao {
         }
         return listaCancion;
     }
+    public ArrayList<Cancion> obtenerCancionAgregar(String nombre2){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Cancion> listaCancion = new ArrayList<>();
+        String sql = "SELECT c.idcancion, p.idplaylist FROM cancion c, playlist p where nombre_cancion= ?\n" +
+                "group by p.idplaylist;";
+        try (Connection connection = DriverManager.getConnection(url,user,pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+
+            pstmt.setString(1,nombre2);
+
+            try(ResultSet rs = pstmt.executeQuery();){
+                while (rs.next()) {
+                    int idcancion = rs.getInt(1);
+                    String idplaylist = rs.getString(2);
+                    listaCancion.add(new Cancion(idcancion,idplaylist));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("No se pudo realizar la busqueda");
+        }
+        return listaCancion;
+    }
+
+    public void agregarlista(String id, String nomlista){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        String sql = "INSERT INTO `lab6sw1`.`playlist` (`idplaylist`, `cancion_idcancion`) VALUES (?, ?);";
+        try (Connection connection = DriverManager.getConnection(url,user,pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql);){
+
+            pstmt.setString(1,nomlista);
+            pstmt.setInt(2,Integer.parseInt(id));
+            pstmt.executeUpdate(); //Es update porque es para insert, update y delete
+
+        } catch (SQLException e) {
+            System.out.println("No se pudo realizar la busqueda");
+        }
+    }
+    public void crearNuevaLista(String nomlista, String id){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        String sql = "INSERT INTO `lab6sw1`.`playlist` (`idplaylist`, `cancion_idcancion`) VALUES (?, ?);";
+        try (Connection connection = DriverManager.getConnection(url,user,pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql);){
+
+            pstmt.setString(1,nomlista);
+            pstmt.setInt(2,Integer.parseInt(id));
+            pstmt.executeUpdate(); //Es update porque es para insert, update y delete
+
+        } catch (SQLException e) {
+            System.out.println("No se pudo realizar la busqueda");
+        }
+    }
+
 
 }

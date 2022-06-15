@@ -15,10 +15,14 @@ public class Cancion {
         this.banda = banda;
     }
 
+
     public Cancion(int idCancion, String nombreCancion, String banda) {
         this.idCancion = idCancion;
         this.nombreCancion = nombreCancion;
         this.banda = banda;
+    }
+
+    public Cancion(int idcancion, String nombrecancion) {
     }
 
     public int getIdCancion() {

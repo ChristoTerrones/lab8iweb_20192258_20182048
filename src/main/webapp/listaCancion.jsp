@@ -68,7 +68,7 @@
                         <% }else{%>
                         <td><a href="<%=request.getContextPath()%>/listaCanciones?a=agregar&id=<%=cancion.getIdCancion()%>" class="btn btn-primary"> <3 </a></td>
                         <% }%>
-                        <td><a href="" class="btn btn-info"> + </a></td>
+                        <td><a href="<%=request.getContextPath()%>/listaCanciones?a=listasReproduccion&id=<%=cancion.getIdCancion()%>" class="btn btn-info"> + </a></td>
 
                     </tr>
                     <% }%>

@@ -86,12 +86,44 @@ public class CancionServlet extends HttpServlet {
                 RequestDispatcher view =request.getRequestDispatcher("playlist.jsp");
                 view.forward(request,response);
             }
+            case "listasReproduccion" -> {
+                String id = request.getParameter("id");
+                request.setAttribute("listasParaAgregar",cancion.obtenerlistas());
+                request.setAttribute("id",id);
 
+                RequestDispatcher view =request.getRequestDispatcher("prueba.jsp");
+                view.forward(request,response);
+            }
+            case "agregarAlista" -> {
+                String id = request.getParameter("id");
+                String nomLista = request.getParameter("nomLista");
+                cancion.agregarlista(id, nomLista);
+                request.setAttribute("listasParaAgregar",cancion.obtenerlistas());
+                request.setAttribute("id",id);
+
+                RequestDispatcher view =request.getRequestDispatcher("prueba.jsp");
+                view.forward(request,response);
+            }
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CancionDao cancion = new CancionDao();
+        String action = request.getParameter("a") == null? "listar" : request.getParameter("a");
+        switch (action) {
+            case "crearlista" -> {
+                String id = request.getParameter("id");
+                String nombre = request.getParameter("nuevoNombre");
+                cancion.crearNuevaLista(nombre,id);
+                request.setAttribute("listasParaAgregar",cancion.obtenerlistas());
+                request.setAttribute("id",id);
 
+                RequestDispatcher view =request.getRequestDispatcher("prueba.jsp");
+                view.forward(request,response);
+
+            }
+        }
     }
 }
+
